@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using TaskManagement.API.Base;
 using TaskManagement.API.DataLayer.Entities;
@@ -9,6 +10,7 @@ namespace TaskManagement.API.DataLayer.Repositories
     {
 
         Task<List<TMTask>> GetAllAsync();
+        Task CreateAsync(TMTask model);
     }
 
     public class TaskRepository : ITaskRepository
@@ -23,6 +25,11 @@ namespace TaskManagement.API.DataLayer.Repositories
         public async Task<List<TMTask>> GetAllAsync()
         {
             return await _context.Tasks.ToListAsync();
+        }
+        public async Task CreateAsync(TMTask model)
+        {
+            await _context.Tasks.AddAsync(model);
+            await _context.SaveChangesAsync();
         }
     }
 }

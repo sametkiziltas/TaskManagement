@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TaskManagement.API.Base;
 using TaskManagement.API.DataLayer.Entities;
 using TaskManagement.API.DataLayer.Repositories;
+using TaskManagement.API.Models.Request;
 using TaskManagement.API.Models.Response;
 
 namespace TaskManagement.API.ServiceLayer
@@ -14,6 +15,7 @@ namespace TaskManagement.API.ServiceLayer
     {
 
         Task<BaseResponse<List<ResponseTask>>> GetAllAsync();
+        Task<BaseResponse<bool>> CreateAsync(RequestTask request);
     }
     public class TaskService : ITaskService
     {
@@ -39,6 +41,36 @@ namespace TaskManagement.API.ServiceLayer
                         TypeOfTask =  Enum.GetName(typeof(TypeOfTask), x.TypeOfTask),
                     })
                 .ToList());
+        }
+        public async Task<BaseResponse<bool>> CreateAsync(RequestTask request)
+        {
+            var response = new BaseResponse<bool>();
+
+            var model = new TMTask(request.TaskDescription);
+
+            if (!string.IsNullOrEmpty(request.AssignedTo))
+            {
+                model.AddAssignedTo(model.AssignedTo);
+            }
+
+            if (request.NextActionDate.HasValue)
+            {
+                model.AddNextActionDate(request.NextActionDate.Value);
+            }
+            
+            if (request.StatusOfTask.HasValue)
+            {
+                model.AddStatusOfTask(request.StatusOfTask.Value);
+            }
+            
+            if (request.TypeOfTask.HasValue)
+            {
+                model.AddTypeOfTask(request.TypeOfTask.Value);
+            }
+
+            await _taskRepository.CreateAsync(model);
+            
+            return response.SetData(true);
         }
     }
 }

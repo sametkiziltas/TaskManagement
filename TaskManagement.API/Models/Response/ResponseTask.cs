@@ -11,4 +11,7 @@ namespace TaskManagement.API.Models.Response
         public string? StatusOfTask { get; set; }        
         public string? TypeOfTask { get; set; }
     }
+    
+    
+    
 }
