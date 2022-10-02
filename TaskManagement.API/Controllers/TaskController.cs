@@ -49,19 +49,19 @@ namespace TaskManagement.API.Controllers
             return Ok(response.Data);
         }
         
-        [HttpPut("/tasks")]
-        [ProducesResponseType(typeof(BaseResponse<List<ResponseTask>>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(List<ErrorModel>), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> UpdateTask()
-        {
-            var response = await _taskService.GetAllAsync();
-
-            if (!response.IsSuccess)
-            {
-                return BadRequest(response.Errors);
-            }
-
-            return Ok(response.Data);
-        }
+        // [HttpPut("/tasks")]
+        // [ProducesResponseType(typeof(BaseResponse<List<ResponseTask>>), StatusCodes.Status200OK)]
+        // [ProducesResponseType(typeof(List<ErrorModel>), StatusCodes.Status400BadRequest)]
+        // public async Task<IActionResult> UpdateTask()
+        // {
+        //     var response = await _taskService.GetAllAsync();
+        //
+        //     if (!response.IsSuccess)
+        //     {
+        //         return BadRequest(response.Errors);
+        //     }
+        //
+        //     return Ok(response.Data);
+        // }
     }
 }
