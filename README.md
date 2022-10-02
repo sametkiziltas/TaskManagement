@@ -1,4 +1,4 @@
 # TaskManagement
 TaskManagement
 
-A project quick prepared for Assignment 
+A project quick prepared for assignment 
